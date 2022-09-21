@@ -38,5 +38,5 @@ export default Timer;
 
 const Container = styled("div", {
   fontSize: "30px",
-  marginTop: "90px",
+  fontFamily: "$Roboto",
 });

@@ -33,6 +33,11 @@ public class TextService {
         textRepository.save(text);
         return text;
     }
+    public Text getTextById(Long textId) {
+        Text text = textRepository.findTextById(textId);
+        return text;
+    }
+
     public Text getRandomElement(List<Text> list) {
         Random rand = new Random();
         return list.get(rand.nextInt(list.size()));

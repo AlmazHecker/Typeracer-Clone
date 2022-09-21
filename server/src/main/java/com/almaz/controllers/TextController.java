@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/text")
+@RequestMapping("/api/v1/text")
 @CrossOrigin(origins = "*")
 public class TextController {
 
@@ -18,6 +18,11 @@ public class TextController {
     @GetMapping
     public Text getText() {
         return textService.getRandomText();
+    }
+
+    @GetMapping("/{textId}")
+    public Text getTextById(@PathVariable Long textId) {
+        return textService.getTextById(textId);
     }
 
     @DeleteMapping("/{textId}")
