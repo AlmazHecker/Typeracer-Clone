@@ -1,13 +1,20 @@
-import React, { FC } from "react";
+import React, { FC, InputHTMLAttributes } from "react";
 import { styled } from "../../styles/stiches.config";
 
 interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const Input: FC<MyInputProps> = ({ ...other }) => {
-  return <CustomInput {...other} />;
+const Input = (
+  { ...other }: any,
+  ref:
+    | ((instance: HTMLInputElement | null) => void)
+    | React.RefObject<HTMLInputElement>
+    | null
+    | undefined
+) => {
+  return <CustomInput ref={ref} {...other} />;
 };
 
-export default Input;
+export default React.forwardRef<HTMLInputElement, MyInputProps>(Input);
 
 const CustomInput = styled("input", {
   width: "100%",
