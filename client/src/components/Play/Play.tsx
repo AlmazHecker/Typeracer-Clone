@@ -1,30 +1,32 @@
-import React from "react";
+import React, { FC, useEffect, useState } from "react";
+import { PlayProps } from "../../pages/play";
 import { styled } from "../../styles/stiches.config";
-import Input from "../UI/Input";
-import { Title } from "../UI/Title";
+import Timer from "../Timer/Timer";
+import Typing from "./Typing";
 
-const Play = () => {
+const Play: FC<PlayProps> = ({ data, words }) => {
+  const [isSubmit, setIsSubmit] = useState(false);
+  const onTimeEnd = () => {
+    setIsSubmit(true);
+  };
+
+  const handleSubmit = (data: Array<String>) => {
+    alert(`OMG you typed ${data.length} words per 1 minute!!`);
+  };
+
   return (
     <Container>
-      <Title>Practice Racetrack. Go!</Title>
-      <WordsContainer>afdlajdkja hello world</WordsContainer>
-      <Input />
+      <Timer onTimeEnd={onTimeEnd} />
+      <Typing
+        data={data}
+        words={words}
+        isSubmit={isSubmit}
+        onSubmit={handleSubmit}
+      />
     </Container>
   );
 };
 
 export default Play;
 
-const Container = styled("div", {
-  marginTop: "90px",
-});
-
-const WordsContainer = styled("div", {
-  fontFamily: "$Roboto",
-  background: "rgb(246,251,255)",
-  borderRadius: "6px",
-  padding: "10px",
-  color: "black",
-  fontSize: "20px",
-  marginBottom: "40px",
-});
+const Container = styled("div", {});
