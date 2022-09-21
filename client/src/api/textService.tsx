@@ -13,6 +13,10 @@ export const getTextRequest = (): TextService["getText"] => {
   return axiosInstance.get("/text");
 };
 
+export const getTextByIdRequest = (textId: number): TextService["getText"] => {
+  return axiosInstance.get(`/text/${textId}`);
+};
+
 export const createTextRequest = (text: Text): TextService["createText"] => {
   return axiosInstance.post("/text", text);
 };

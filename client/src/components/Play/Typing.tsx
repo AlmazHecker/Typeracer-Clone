@@ -1,4 +1,5 @@
 import { CSS } from "@stitches/react/types/css-util";
+import Link from "next/link";
 import React, {
   ChangeEvent,
   FC,
@@ -10,6 +11,7 @@ import React, {
 import { PlayProps } from "../../pages/play";
 import { styled } from "../../styles/stiches.config";
 import { STYLES, WordList } from "../../utils/general";
+import Button from "../UI/Button";
 import Input from "../UI/Input";
 import { Title } from "../UI/Title";
 import { Word } from "../UI/Word";
@@ -23,7 +25,7 @@ interface TypingProps extends PlayProps {
   onSubmit: (data: Array<String>) => void;
 }
 
-const Typing: FC<TypingProps> = ({ words, isSubmit, onSubmit }) => {
+const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [index, setIndex] = useState(0);
   const [inputValue, setInputValue] = useState("");
@@ -49,8 +51,6 @@ const Typing: FC<TypingProps> = ({ words, isSubmit, onSubmit }) => {
 
     return wordList;
   }, [index, words]);
-
-  console.log("hello");
 
   const currentWord = () => {
     let hasError = false;
@@ -105,7 +105,13 @@ const Typing: FC<TypingProps> = ({ words, isSubmit, onSubmit }) => {
 
   return (
     <Container>
-      <Title>Practice Racetrack. Go!</Title>
+      <Header>
+        <Title>Practice Racetrack. Go!</Title>
+        <FixText>
+          <Description>Нашли опечатку ? </Description>
+          <Link href={`/update-text/${data.id}`}>Исправить</Link>
+        </FixText>
+      </Header>
       <WordsContainer>
         <WordsWrapper>
           {listOfWords.BEFORE}
@@ -146,3 +152,27 @@ const WordsWrapper = styled("div", {
 });
 
 const Letter = styled("span", {});
+
+const Description = styled("p", {
+  fontFamily: "$Roboto",
+});
+
+const Header = styled("header", {
+  display: "flex",
+
+  alignItems: "center",
+  justifyContent: "space-between",
+});
+
+const FixText = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  fontFamily: "$Roboto",
+  gap: "5px",
+  a: {
+    color: "rgb(77,185,243)",
+  },
+  "a:hover": {
+    textDecoration: "underline",
+  },
+});

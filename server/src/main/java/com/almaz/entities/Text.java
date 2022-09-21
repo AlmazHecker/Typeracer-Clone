@@ -26,6 +26,9 @@ public class Text {
         this.updatedAt = LocalDate.now();
     }
 
+    public Text() {
+    }
+
     public Long getId() {
         return id;
     }

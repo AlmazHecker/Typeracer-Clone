@@ -21,4 +21,7 @@ const CustomInput = styled("input", {
   padding: "10px",
   fontSize: "$4",
   fontFamily: "$Roboto",
+  "&::placeholder": {
+    fontFamily: "$Roboto",
+  },
 });
