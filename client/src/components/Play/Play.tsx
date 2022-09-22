@@ -3,7 +3,6 @@ import React, { FC, useEffect, useState } from "react";
 import { PlayProps } from "../../pages/play";
 import { styled } from "../../styles/stiches.config";
 import Timer from "../Timer/Timer";
-import Button from "../UI/Button";
 import Typing from "./Typing";
 
 const Play: FC<PlayProps> = ({ data, words }) => {
@@ -16,7 +15,7 @@ const Play: FC<PlayProps> = ({ data, words }) => {
 
   const handleSubmit = (data: Array<String>) => {
     alert(`OMG you typed ${data.length} words per 1 minute!!`);
-    router.push("/");
+    router.push("/main");
   };
 
   return (

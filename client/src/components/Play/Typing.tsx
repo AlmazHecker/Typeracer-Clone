@@ -58,6 +58,9 @@ const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
       inputRef.current.style.background = "";
     }
 
+    if (inputValue.length > words[index].length && inputRef.current) {
+      inputRef.current.style.background = "#d08383";
+    }
     return words[index].split("").map((letter, i) => {
       let color = STYLES.DEFAULT;
 
