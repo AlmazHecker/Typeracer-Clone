@@ -1,26 +1,37 @@
 import { useRouter } from "next/router";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { PlayProps } from "../../pages/play";
 import { styled } from "../../styles/stiches.config";
-import Timer from "../Timer/Timer";
+import useTimer, { Time } from "../../utils/hooks/useTimer";
 import Typing from "./Typing";
 
 const Play: FC<PlayProps> = ({ data, words }) => {
   const router = useRouter();
   const [isSubmit, setIsSubmit] = useState(false);
 
-  const onTimeEnd = () => {
+  const onTimeEnd = (time: Time) => {
     setIsSubmit(true);
   };
 
+  const time = useTimer({ onTimeEnd, initialTime: { seconds: 0, minutes: 1 } });
+
   const handleSubmit = (data: Array<String>) => {
-    alert(`OMG you typed ${data.length} words per 1 minute!!`);
+    alert(
+      `OMG you typed ${data.length} words per ${
+        Math.round(time.minutes * 60) + time.seconds
+      } seconds !!`
+    );
     router.push("/main");
   };
 
   return (
     <Container>
-      <Timer onTimeEnd={onTimeEnd} />
+      <TimeContainer>
+        Go, Go! {time.minutes.toString().length === 1 && 0}
+        {time.minutes}:{time.seconds.toString().length === 1 && 0}
+        {time.seconds}
+      </TimeContainer>
+
       <Typing
         data={data}
         words={words}
@@ -34,3 +45,8 @@ const Play: FC<PlayProps> = ({ data, words }) => {
 export default Play;
 
 const Container = styled("div", {});
+
+const TimeContainer = styled("div", {
+  fontSize: "30px",
+  fontFamily: "$Roboto",
+});
