@@ -61,12 +61,30 @@ const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
     if (inputValue.length > words[index].length && inputRef.current) {
       inputRef.current.style.background = "#d08383";
     }
-    return words[index].split("").map((letter, i) => {
+
+    let shortValue = inputValue.slice(words[index].length);
+    console.log(shortValue);
+    if (shortValue.length > 10) shortValue = shortValue.slice(0, 10);
+
+    const currentTextWord = `${words[index]}${shortValue}`;
+
+    return currentTextWord.split("").map((letter, i) => {
       let color = STYLES.DEFAULT;
 
       if (inputValue[i]) {
-        if (inputValue[i] === letter) color = STYLES.SUCCESS;
-        if (inputValue[i] !== letter) {
+        // if (inputValue[i] === letter) color = STYLES.SUCCESS;
+        color = STYLES.SUCCESS;
+        if (i < words[index].length && inputValue[i] !== letter) {
+          color = STYLES.ERROR;
+          if (inputRef.current) {
+            inputRef.current.style.background = "#d08383";
+          }
+          hasError = true;
+        }
+        if (
+          words[index].length < currentTextWord.length &&
+          i + 1 > words[index].length
+        ) {
           color = STYLES.ERROR;
           if (inputRef.current) {
             inputRef.current.style.background = "#d08383";
@@ -75,6 +93,7 @@ const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
         }
         if (hasError) color = STYLES.ERROR;
       }
+      // color = STYLES.ERROR;
 
       return (
         <Letter key={i} css={color}>
@@ -97,6 +116,11 @@ const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
       setIndex(index + 1);
       return setInputValue("");
     }
+
+    if (index + 1 === words.length && value.trim() === words[index]) {
+      return onSubmit(words);
+    }
+
     setInputValue(value);
   };
 

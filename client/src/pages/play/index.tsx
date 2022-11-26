@@ -19,10 +19,75 @@ Play.getLayout = (page: React.ReactNode) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await getTextRequest();
+  // const { data } = await getTextRequest();
+  const data = {
+    createdAt: "2020-01-01",
+    updatedAt: "2020-01-01",
+    text: "random",
+    id: 1,
+  };
+  const text = [
+    "Whenever",
+    "I'm",
+    "alone",
+    "with",
+    "you,",
+    "you",
+    "make",
+    "me",
+    "feel",
+    "like",
+    "I",
+    "am",
+    "home",
+    "again.",
+    "Whenever",
+    "I'm",
+    "alone",
+    "with",
+    "you,",
+    "you",
+    "make",
+    "me",
+    "feel",
+    "like",
+    "I",
+    "am",
+    "whole",
+    "again.",
+    // "Whenever",
+    // "I'm",
+    // "alone",
+    // "with",
+    // "you,",
+    // "you",
+    // "make",
+    // "me",
+    // "feel",
+    // "like",
+    // "I",
+    // "am",
+    // "young",
+    // "again.",
+    // "Whenever",
+    // "I'm",
+    // "alone",
+    // "with",
+    // "you,",
+    // "you",
+    // "make",
+    // "me",
+    // "feel",
+    // "like",
+    // "I",
+    // "am",
+    // "fun",
+    // "again.",
+  ];
 
   return {
-    props: { data, words: data.text.replace(/\n/g, " ").split(" ") },
+    // props: { data, words: data.text.replace(/\n/g, " ").split(" ") },
+    props: { data, words: text },
   };
 };
 
