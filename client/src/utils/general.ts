@@ -1,5 +1,5 @@
-import { CSS } from "@stitches/react/types/css-util";
-import { Word } from "../components/UI/Word";
+import { CSS } from '@stitches/react/types/css-util';
+import { Word } from '../components/UI/Word';
 
 export interface WordList {
   AFTER: JSX.Element[];
@@ -7,24 +7,24 @@ export interface WordList {
 }
 
 export type STYLE_TYPES = {
-  SUCCESS: Partial<CSS>;
-  CURRENT: Partial<CSS>;
-  ERROR: Partial<CSS>;
-  DEFAULT: Partial<CSS>;
+  SUCCESS: CSS;
+  CURRENT: CSS;
+  ERROR: CSS;
+  DEFAULT: CSS;
 };
 
 export const STYLES: STYLE_TYPES = {
   SUCCESS: {
-    color: "rgb(76,175,80)",
+    color: 'rgb(76,175,80)',
   },
   CURRENT: {
-    textDecoration: "underline",
+    textDecoration: 'underline',
   },
   ERROR: {
-    background: "#d08383",
-    color: "#555",
+    background: '#d08383',
+    color: '#555',
   },
   DEFAULT: {
-    color: "black",
+    color: 'black',
   },
 };
