@@ -1,9 +1,9 @@
-import { GetServerSideProps } from "next";
-import React from "react";
-import { getTextRequest } from "../../api/textService";
-import PlayPage from "../../containers/PlayPage";
-import MainLayout from "../../layouts/MainLayout";
-import { Text } from "../../types/text";
+import { GetServerSideProps } from 'next';
+import React from 'react';
+import { getTextRequest } from '../../api/textService';
+import PlayPage from '../../containers/PlayPage';
+import MainLayout from '../../layouts/MainLayout';
+import { Text } from '../../types/text';
 
 export interface PlayProps {
   data: Text;
@@ -21,68 +21,40 @@ Play.getLayout = (page: React.ReactNode) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   // const { data } = await getTextRequest();
   const data = {
-    createdAt: "2020-01-01",
-    updatedAt: "2020-01-01",
-    text: "random",
+    createdAt: '2020-01-01',
+    updatedAt: '2020-01-01',
+    text: 'random',
     id: 1,
   };
   const text = [
-    "Whenever",
+    'Whenever',
     "I'm",
-    "alone",
-    "with",
-    "you,",
-    "you",
-    "make",
-    "me",
-    "feel",
-    "like",
-    "I",
-    "am",
-    "home",
-    "again.",
-    "Whenever",
+    'alone',
+    'with',
+    'you,',
+    'you',
+    'make',
+    'me',
+    'feel',
+    'like',
+    'I',
+    'am',
+    'home',
+    'again.',
+    'Whenever',
     "I'm",
-    "alone",
-    "with",
-    "you,",
-    "you",
-    "make",
-    "me",
-    "feel",
-    "like",
-    "I",
-    "am",
-    "whole",
-    "again.",
-    // "Whenever",
-    // "I'm",
-    // "alone",
-    // "with",
-    // "you,",
-    // "you",
-    // "make",
-    // "me",
-    // "feel",
-    // "like",
-    // "I",
-    // "am",
-    // "young",
-    // "again.",
-    // "Whenever",
-    // "I'm",
-    // "alone",
-    // "with",
-    // "you,",
-    // "you",
-    // "make",
-    // "me",
-    // "feel",
-    // "like",
-    // "I",
-    // "am",
-    // "fun",
-    // "again.",
+    'alone',
+    'with',
+    'you,',
+    'you',
+    'make',
+    'me',
+    'feel',
+    'like',
+    'I',
+    'am',
+    'whole',
+    'again.',
   ];
 
   return {

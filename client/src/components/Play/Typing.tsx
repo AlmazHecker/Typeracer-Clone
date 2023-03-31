@@ -1,5 +1,4 @@
-import { CSS } from "@stitches/react/types/css-util";
-import Link from "next/link";
+import Link from 'next/link';
 import React, {
   ChangeEvent,
   FC,
@@ -7,14 +6,14 @@ import React, {
   useMemo,
   useRef,
   useState,
-} from "react";
-import { PlayProps } from "../../pages/play";
-import { styled } from "../../styles/stiches.config";
-import { STYLES, WordList } from "../../utils/general";
-import Button from "../UI/Button";
-import Input from "../UI/Input";
-import { Title } from "../UI/Title";
-import { Word } from "../UI/Word";
+} from 'react';
+import { PlayProps } from '../../pages/play';
+import { styled } from '../../styles/stiches.config';
+import { STYLES, WordList } from '../../utils/general';
+import Button from '../UI/Button';
+import Input from '../UI/Input';
+import { Title } from '../UI/Title';
+import { Word } from '../UI/Word';
 
 interface InputProps extends ChangeEvent<HTMLInputElement> {
   nativeEvent: InputEvent;
@@ -26,9 +25,9 @@ interface TypingProps extends PlayProps {
 }
 
 const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<any>({ style: { background: '' } });
   const [index, setIndex] = useState(0);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
 
   const listOfWords = useMemo(() => {
     const wordList: WordList = {
@@ -54,31 +53,29 @@ const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
 
   const currentWord = () => {
     let hasError = false;
-    if (inputRef.current) {
-      inputRef.current.style.background = "";
-    }
+    const Input = inputRef.current;
 
-    if (inputValue.length > words[index].length && inputRef.current) {
-      inputRef.current.style.background = "#d08383";
+    Input.style.background = '';
+
+    if (inputValue.length > words[index].length) {
+      Input.style.background = '#d08383';
     }
 
     let shortValue = inputValue.slice(words[index].length);
-    console.log(shortValue);
     if (shortValue.length > 10) shortValue = shortValue.slice(0, 10);
 
     const currentTextWord = `${words[index]}${shortValue}`;
 
-    return currentTextWord.split("").map((letter, i) => {
+    return currentTextWord.split('').map((letter, i) => {
       let color = STYLES.DEFAULT;
 
       if (inputValue[i]) {
-        // if (inputValue[i] === letter) color = STYLES.SUCCESS;
         color = STYLES.SUCCESS;
         if (i < words[index].length && inputValue[i] !== letter) {
           color = STYLES.ERROR;
-          if (inputRef.current) {
-            inputRef.current.style.background = "#d08383";
-          }
+
+          Input.style.background = '#d08383';
+
           hasError = true;
         }
         if (
@@ -86,14 +83,13 @@ const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
           i + 1 > words[index].length
         ) {
           color = STYLES.ERROR;
-          if (inputRef.current) {
-            inputRef.current.style.background = "#d08383";
-          }
+
+          Input.style.background = '#d08383';
+
           hasError = true;
         }
         if (hasError) color = STYLES.ERROR;
       }
-      // color = STYLES.ERROR;
 
       return (
         <Letter key={i} css={color}>
@@ -108,13 +104,13 @@ const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
     nativeEvent: { data },
   }: InputProps) => {
     // if user prints whitespace it will check
-    if (data === " " && value.trim() === words[index]) {
+    if (data === ' ' && value.trim() === words[index]) {
       if (!words[index + 1]) {
         return onSubmit(words);
       }
 
       setIndex(index + 1);
-      return setInputValue("");
+      return setInputValue('');
     }
 
     if (index + 1 === words.length && value.trim() === words[index]) {
@@ -139,10 +135,19 @@ const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
           <Link href={`/update-text/${data.id}`}>Исправить</Link>
         </FixText>
       </Header>
+      <Indicator
+        css={{
+          width: `${Math.round(
+            (listOfWords.BEFORE.length / (words.length - 1)) * 100
+          )}%`,
+        }}
+      />
       <WordsContainer>
         <WordsWrapper>
           {listOfWords.BEFORE}
+
           <Word content={currentWord()} css={STYLES.CURRENT} />
+
           {listOfWords.AFTER}
         </WordsWrapper>
       </WordsContainer>
@@ -159,47 +164,53 @@ const Typing: FC<TypingProps> = ({ data, words, isSubmit, onSubmit }) => {
 
 export default React.memo(Typing);
 
-const Container = styled("div", {});
+const Container = styled('div', {});
 
-const WordsContainer = styled("div", {
-  background: "rgb(246,251,255)",
-  borderRadius: "6px",
-  padding: "10px",
-  marginBottom: "40px",
+const WordsContainer = styled('div', {
+  background: 'rgb(246,251,255)',
+  borderRadius: '6px',
+  padding: '10px',
+  marginBottom: '40px',
 });
 
-const WordsWrapper = styled("div", {
-  display: "flex",
-  flexWrap: "wrap",
-  gap: "3px",
+const WordsWrapper = styled('div', {
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '3px',
 
-  fontFamily: "$Roboto",
-  fontSize: "$4",
-  color: "black",
+  fontFamily: '$Roboto',
+  fontSize: '$4',
+  color: 'black',
 });
 
-const Letter = styled("span", {});
+const Letter = styled('span', {});
 
-const Description = styled("p", {
-  fontFamily: "$Roboto",
+const Description = styled('p', {
+  fontFamily: '$Roboto',
 });
 
-const Header = styled("header", {
-  display: "flex",
+const Header = styled('header', {
+  display: 'flex',
 
-  alignItems: "center",
-  justifyContent: "space-between",
+  alignItems: 'center',
+  justifyContent: 'space-between',
 });
 
-const FixText = styled("div", {
-  display: "flex",
-  alignItems: "center",
-  fontFamily: "$Roboto",
-  gap: "5px",
+const FixText = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  fontFamily: '$Roboto',
+  gap: '5px',
   a: {
-    color: "rgb(77,185,243)",
+    color: 'rgb(77,185,243)',
   },
-  "a:hover": {
-    textDecoration: "underline",
+  'a:hover': {
+    textDecoration: 'underline',
   },
+});
+
+const Indicator = styled('div', {
+  height: '20px',
+  backgroundColor: 'red',
+  transition: 'all 0.4s linear',
 });
