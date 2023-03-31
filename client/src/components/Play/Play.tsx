@@ -12,7 +12,6 @@ const Play: FC<PlayProps> = ({ data, words }) => {
   const onTimeEnd = (time: Time) => {
     setIsSubmit(true);
   };
-
   const time = useTimer({ onTimeEnd, initialTime: { seconds: 0, minutes: 1 } });
 
   const handleSubmit = useCallback((data: Array<String>) => {
